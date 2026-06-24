@@ -1,5 +1,6 @@
 package in.springcore;
 
+import in.springcore.payment.CardPayment;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -11,5 +12,9 @@ public class Main {
 
         OrderService order= context.getBean(OrderService.class);
         order.placeorder();
+
+        CardPayment payment = context.getBean(CardPayment.class);
+        payment.pay();
+
     }
 }
