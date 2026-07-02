@@ -17,6 +17,7 @@ public class StudentService {
     public StudentService(StudentRepository studentRepository){
         this.studentRepository=studentRepository;
     }
+
     public Student createStudent(Student studentreq){
 
 
@@ -55,8 +56,13 @@ public class StudentService {
 
         return studentRepository.save(studentToSave);
 
+    }
+    public Boolean deleteStudent(Long id){
+       Boolean isStudent = studentRepository.existsById(id);
 
+        if(!isStudent) return false;
+         studentRepository.deleteById(id);
 
-
+         return true;
     }
 }
