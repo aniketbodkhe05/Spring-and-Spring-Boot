@@ -1,14 +1,14 @@
 package in.aniket.crudSpringbootDemo.repository;
 
 import in.aniket.crudSpringbootDemo.entity.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
-public class StudentRepository   {
 
-    public Student saveStudent(Student studentreq){
+public interface StudentRepository extends JpaRepository<Student,Long> {
 
-        System.out.println("Inside StudentRepository");
-        return null;
-    }
+
+
+
 }

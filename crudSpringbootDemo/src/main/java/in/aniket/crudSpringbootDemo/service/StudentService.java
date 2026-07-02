@@ -5,20 +5,58 @@ import in.aniket.crudSpringbootDemo.repository.StudentRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class StudentService {
 
 
-    private StudentRepository studentRepository;
+    private static StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository){
         this.studentRepository=studentRepository;
     }
     public Student createStudent(Student studentreq){
-        System.out.println("Inside StudentService");
 
-        Student studentresp=studentRepository.saveStudent(studentreq);
+
+        Student studentresp=studentRepository.save(studentreq);
         return studentresp;
+
+    }
+    public static Student getStudent(Long id){
+        Optional<Student> studentres=studentRepository.findById(id);
+        if(studentres.isPresent()){
+            return studentres.get();
+        }
+        return null;
+    }
+
+    public List<Student> getAllStudent(){
+        List<Student> studentList = studentRepository.findAll();
+
+        return studentList;
+    }
+
+    public Student updateStudent(Long id,Student studentreq){
+        Optional<Student> existingStudent=studentRepository.findById(id);
+
+        if(existingStudent.isEmpty()){
+            return null;
+        }
+
+        Student studentToSave = existingStudent.get();
+
+        studentToSave.setName(studentreq.getName());
+        studentToSave.setAge(studentreq.getAge());
+        studentToSave.setEmail(studentreq.getEmail());
+        studentToSave.setRollNo(studentreq.getRollNo());
+        studentToSave.setSubject(studentreq.getSubject());
+
+        return studentRepository.save(studentToSave);
+
+
+
 
     }
 }
