@@ -2,6 +2,8 @@ package in.aniket.crudSpringbootDemo.controller;
 
 import in.aniket.crudSpringbootDemo.dto.StudentResponseDto;
 import in.aniket.crudSpringbootDemo.dto.StudentrequestDto;
+import in.aniket.crudSpringbootDemo.dto.UpdateRequestDTO;
+import in.aniket.crudSpringbootDemo.dto.UpdateResponseDto;
 import in.aniket.crudSpringbootDemo.entity.Student;
 import in.aniket.crudSpringbootDemo.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -31,8 +33,8 @@ public class StudentController {
     }
     //read one student
     @GetMapping("/get/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable Long id){
-        Student studentresponse= studentService.getStudent(id);
+    public ResponseEntity<StudentResponseDto> getStudent(@PathVariable Long id){
+        StudentResponseDto studentresponse= studentService.getStudent(id);
 
 
         if(studentresponse==null){
@@ -44,8 +46,8 @@ public class StudentController {
 
     //read all students
     @GetMapping("/getAll")
-    public ResponseEntity<List<Student>> getAllStudent(){
-        List<Student> studentList= studentService.getAllStudent();
+    public ResponseEntity<List<StudentResponseDto>> getAllStudent(){
+        List<StudentResponseDto> studentList= studentService.getAllStudent();
 
 
         if(studentList.isEmpty()){
@@ -56,8 +58,8 @@ public class StudentController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id,@RequestBody Student studentreq){
-        Student studentresponse= studentService.updateStudent(id,studentreq);
+    public ResponseEntity<UpdateResponseDto> updateStudent(@PathVariable Long id,@RequestBody UpdateRequestDTO updateRequestDTO){
+        UpdateResponseDto studentresponse= studentService.updateStudent(id,updateRequestDTO);
 
 
         if(studentresponse==null){

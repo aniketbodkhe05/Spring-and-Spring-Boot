@@ -2,6 +2,8 @@ package in.aniket.crudSpringbootDemo.service;
 
 import in.aniket.crudSpringbootDemo.dto.StudentResponseDto;
 import in.aniket.crudSpringbootDemo.dto.StudentrequestDto;
+import in.aniket.crudSpringbootDemo.dto.UpdateRequestDTO;
+import in.aniket.crudSpringbootDemo.dto.UpdateResponseDto;
 import in.aniket.crudSpringbootDemo.entity.Student;
 import in.aniket.crudSpringbootDemo.repository.StudentRepository;
 import org.springframework.stereotype.Component;
@@ -33,21 +35,25 @@ public class StudentService {
        return mapToDto(studentresponse);
 
     }
-    public static Student getStudent(Long id){
-        Optional<Student> studentres=studentRepository.findById(id);
-        if(studentres.isPresent()){
-            return studentres.get();
+    public StudentResponseDto getStudent(Long id) {
+        Optional<Student> studentres = studentRepository.findById(id);
+
+        if (studentres.isPresent()) {
+            return mapToDto(studentres.get());
         }
+
         return null;
     }
 
-    public List<Student> getAllStudent(){
+    public List<StudentResponseDto> getAllStudent() {
+
         List<Student> studentList = studentRepository.findAll();
 
-        return studentList;
+        return studentList.stream()
+                .map(this::mapToDto)
+                .toList();
     }
-
-    public Student updateStudent(Long id,Student studentreq){
+    public UpdateResponseDto updateStudent(Long id, UpdateRequestDTO updateRequestDTO){
         Optional<Student> existingStudent=studentRepository.findById(id);
 
         if(existingStudent.isEmpty()){
@@ -56,13 +62,17 @@ public class StudentService {
 
         Student studentToSave = existingStudent.get();
 
-        studentToSave.setName(studentreq.getName());
-        studentToSave.setAge(studentreq.getAge());
-        studentToSave.setEmail(studentreq.getEmail());
-        studentToSave.setRollNo(studentreq.getRollNo());
-        studentToSave.setSubject(studentreq.getSubject());
+        studentToSave.setName(updateRequestDTO.getName());
+        studentToSave.setAge(updateRequestDTO.getAge());
 
-        return studentRepository.save(studentToSave);
+        studentToSave.setRollNo(updateRequestDTO.getRollNo());
+        studentToSave.setSubject(updateRequestDTO.getSubject());
+        studentToSave.setUpdateddAt(LocalDateTime.now());
+
+
+Student savedstudent=  studentRepository.save(studentToSave);
+
+return  mapToUpdateDto(savedstudent);
 
     }
     public Boolean deleteStudent(Long id){
@@ -94,6 +104,20 @@ public class StudentService {
         responseDto.setSubject(student.getSubject());
         responseDto.setMessage("Student Saved Successfully !");
         responseDto.setCreatedAt(student.getCreatedAt());
+        responseDto.setUpdateddAt(student.getUpdateddAt());
+
+        return responseDto;
+
+    }
+
+    private UpdateResponseDto mapToUpdateDto(Student student){
+        UpdateResponseDto responseDto= new UpdateResponseDto();
+        responseDto.setId(student.getId());
+        responseDto.setName(student.getName());
+        responseDto.setAge(student.getAge());
+        responseDto.setEmail(student.getEmail());
+        responseDto.setSubject(student.getSubject());
+        responseDto.setMessage("Student Updated Successfully !");
         responseDto.setUpdateddAt(student.getUpdateddAt());
 
         return responseDto;
