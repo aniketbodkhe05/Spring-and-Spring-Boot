@@ -1,11 +1,21 @@
 package in.aniket.crudSpringbootDemo.dto;
 
+import jakarta.validation.constraints.*;
+
 public class StudentrequestDto {
     private Long id;
+    @NotBlank
     private String name;
+
+    @Min(value=18)
     private int age;
+
+    @Email
     private String email;
-    private int rollNo;
+    @NotEmpty
+    private Integer rollNo;
+
+    @NotBlank
     private String subject;
 
 

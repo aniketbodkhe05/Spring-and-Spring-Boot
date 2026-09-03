@@ -6,6 +6,7 @@ import in.aniket.crudSpringbootDemo.dto.UpdateRequestDTO;
 import in.aniket.crudSpringbootDemo.dto.UpdateResponseDto;
 import in.aniket.crudSpringbootDemo.entity.Student;
 import in.aniket.crudSpringbootDemo.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<StudentResponseDto> createStudent(@RequestBody StudentrequestDto studentrequestDto){
+    public ResponseEntity<StudentResponseDto> createStudent(@Valid @RequestBody StudentrequestDto studentrequestDto){
 
 
       StudentResponseDto createdstudent= studentService.createStudent(studentrequestDto);
