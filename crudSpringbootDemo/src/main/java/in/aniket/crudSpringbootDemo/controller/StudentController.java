@@ -1,5 +1,7 @@
 package in.aniket.crudSpringbootDemo.controller;
 
+import in.aniket.crudSpringbootDemo.dto.StudentResponseDto;
+import in.aniket.crudSpringbootDemo.dto.StudentrequestDto;
 import in.aniket.crudSpringbootDemo.entity.Student;
 import in.aniket.crudSpringbootDemo.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -20,10 +22,10 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Student> createStudent(@RequestBody Student student){
+    public ResponseEntity<StudentResponseDto> createStudent(@RequestBody StudentrequestDto studentrequestDto){
 
 
-        Student createdstudent= studentService.createStudent(student);
+      StudentResponseDto createdstudent= studentService.createStudent(studentrequestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdstudent);
     }

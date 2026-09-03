@@ -1,14 +1,18 @@
-package in.aniket.crudSpringbootDemo.entity;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+package in.aniket.crudSpringbootDemo.dto;
 
 import java.time.LocalDateTime;
 
-@Entity
-public class Student {
+public class StudentResponseDto {
+    private Long id;
+    private String name;
+    private int age;
+    private String email;
+    private int rollNo;
+    private String subject;
+    private String message;
+    private LocalDateTime createdAt;
+    private LocalDateTime updateddAt;
+
     public Long getId() {
         return id;
     }
@@ -16,18 +20,6 @@ public class Student {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private int age;
-    private String email;
-    private int rollNo;
-    private String subject;
-    private LocalDateTime createdAt;
-    private LocalDateTime updateddAt;
-
 
     public String getName() {
         return name;
@@ -67,6 +59,14 @@ public class Student {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public LocalDateTime getCreatedAt() {
