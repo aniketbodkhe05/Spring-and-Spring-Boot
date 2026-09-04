@@ -5,6 +5,7 @@ import in.aniket.crudSpringbootDemo.dto.StudentrequestDto;
 import in.aniket.crudSpringbootDemo.dto.UpdateRequestDTO;
 import in.aniket.crudSpringbootDemo.dto.UpdateResponseDto;
 import in.aniket.crudSpringbootDemo.entity.Student;
+import in.aniket.crudSpringbootDemo.exception.DuplicateResourceEception;
 import in.aniket.crudSpringbootDemo.exception.ResourceNotFoundException;
 import in.aniket.crudSpringbootDemo.repository.StudentRepository;
 import org.springframework.stereotype.Component;
@@ -28,9 +29,10 @@ public class StudentService {
 
 
        Student student= mapToEntity(studentrequestDto);
-       student.setCreatedAt(LocalDateTime.now());
-       student.setUpdateddAt(LocalDateTime.now());
 
+       if(emailExits(student)){
+           throw new DuplicateResourceEception("Email id already exits");
+       }
        Student studentresponse= studentRepository.save(student);
 
        return mapToDto(studentresponse);
@@ -97,6 +99,8 @@ return  mapToUpdateDto(savedstudent);
         student.setEmail(studentrequestDto.getEmail());
         student.setRollNo(studentrequestDto.getRollNo());
         student.setSubject(studentrequestDto.getSubject());
+        student.setCreatedAt(LocalDateTime.now());
+        student.setUpdateddAt(LocalDateTime.now());
 
         return student;
     }
@@ -128,5 +132,8 @@ return  mapToUpdateDto(savedstudent);
 
         return responseDto;
 
+    }
+    private boolean emailExits(Student student){
+        return StudentRepository.existsByEmail(student.getEmail());
     }
 }

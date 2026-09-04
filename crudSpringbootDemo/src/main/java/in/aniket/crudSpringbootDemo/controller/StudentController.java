@@ -62,11 +62,6 @@ public class StudentController {
     public ResponseEntity<UpdateResponseDto> updateStudent(@PathVariable Long id,@RequestBody UpdateRequestDTO updateRequestDTO){
         UpdateResponseDto studentresponse= studentService.updateStudent(id,updateRequestDTO);
 
-
-        if(studentresponse==null){
-            return ResponseEntity.notFound().build();
-        }
-
         return ResponseEntity.ok(studentresponse);
     }
 
