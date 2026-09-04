@@ -48,7 +48,7 @@ public class StudentService {
 //
 //        return null;
 
-        return mapToDto(studentres.get());
+        return mapToDto(studentres);
     }
 
     public List<StudentResponseDto> getAllStudent() {
