@@ -24,7 +24,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<StudentResponseDto> createStudent(@Valid @RequestBody StudentrequestDto studentrequestDto){
 
 
@@ -33,7 +33,7 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdstudent);
     }
     //read one student
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<StudentResponseDto> getStudent(@PathVariable Long id){
         StudentResponseDto studentresponse= studentService.getStudent(id);
 
@@ -46,7 +46,7 @@ public class StudentController {
     }
 
     //read all students
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<StudentResponseDto>> getAllStudent(){
         List<StudentResponseDto> studentList= studentService.getAllStudent();
 
@@ -58,7 +58,7 @@ public class StudentController {
         return ResponseEntity.ok(studentList);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping
     public ResponseEntity<UpdateResponseDto> updateStudent(@PathVariable Long id,@RequestBody UpdateRequestDTO updateRequestDTO){
         UpdateResponseDto studentresponse= studentService.updateStudent(id,updateRequestDTO);
 

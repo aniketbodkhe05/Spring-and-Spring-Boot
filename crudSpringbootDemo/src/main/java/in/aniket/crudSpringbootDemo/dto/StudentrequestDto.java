@@ -12,7 +12,7 @@ public class StudentrequestDto {
 
     @Email
     private String email;
-    @NotEmpty
+    @NotNull
     private Integer rollNo;
 
     @NotBlank
@@ -51,11 +51,11 @@ public class StudentrequestDto {
         this.email = email;
     }
 
-    public int getRollNo() {
+    public Integer getRollNo() {
         return rollNo;
     }
 
-    public void setRollNo(int rollNo) {
+    public void setRollNo(Integer rollNo) {
         this.rollNo = rollNo;
     }
 
