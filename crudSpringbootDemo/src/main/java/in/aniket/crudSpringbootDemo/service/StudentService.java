@@ -5,6 +5,7 @@ import in.aniket.crudSpringbootDemo.dto.StudentrequestDto;
 import in.aniket.crudSpringbootDemo.dto.UpdateRequestDTO;
 import in.aniket.crudSpringbootDemo.dto.UpdateResponseDto;
 import in.aniket.crudSpringbootDemo.entity.Student;
+import in.aniket.crudSpringbootDemo.exception.ResourceNotFoundException;
 import in.aniket.crudSpringbootDemo.repository.StudentRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,10 @@ public class StudentService {
 
     }
     public StudentResponseDto getStudent(Long id) {
-        Optional<Student> studentres = studentRepository.findById(id);
+       Student studentres = studentRepository
+               .findById(id)
+               .orElseThrow(() ->
+                       new ResourceNotFoundException("Student with id "+id+"Not found"));
 
 //        if (studentres.isPresent()) {
 //            return mapToDto(studentres.get());
