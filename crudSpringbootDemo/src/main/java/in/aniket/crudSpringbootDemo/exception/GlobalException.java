@@ -9,10 +9,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalException {
 
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex){
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ex.getMessage());
+    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGenericException(Exception ex){
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Somethinng went wrong ,please try again later");
     }
 }
