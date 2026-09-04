@@ -38,11 +38,13 @@ public class StudentService {
     public StudentResponseDto getStudent(Long id) {
         Optional<Student> studentres = studentRepository.findById(id);
 
-        if (studentres.isPresent()) {
-            return mapToDto(studentres.get());
-        }
+//        if (studentres.isPresent()) {
+//            return mapToDto(studentres.get());
+//        }
+//
+//        return null;
 
-        return null;
+        return mapToDto(studentres.get());
     }
 
     public List<StudentResponseDto> getAllStudent() {
