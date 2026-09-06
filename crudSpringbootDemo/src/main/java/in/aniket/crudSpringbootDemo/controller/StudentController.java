@@ -51,9 +51,6 @@ public class StudentController {
         List<StudentResponseDto> studentList= studentService.getAllStudent();
 
 
-        if(studentList.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
 
         return ResponseEntity.ok(studentList);
     }
@@ -61,19 +58,18 @@ public class StudentController {
     @PutMapping
     public ResponseEntity<UpdateResponseDto> updateStudent(@PathVariable Long id,@RequestBody UpdateRequestDTO updateRequestDTO){
         UpdateResponseDto studentresponse= studentService.updateStudent(id,updateRequestDTO);
-
+        if(studentresponse==null){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(studentresponse);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id){
-        Boolean isDeleted = studentService.deleteStudent(id);
+       studentService.deleteStudent(id);
 
-        if(!isDeleted){
-            return ResponseEntity.notFound().build();
-        }
 
-        return ResponseEntity.ok("Record Deleted");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
