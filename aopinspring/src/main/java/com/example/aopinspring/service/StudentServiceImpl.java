@@ -11,6 +11,13 @@ public class StudentServiceImpl implements StudentService{
         this.studentRepository=studentRepository;
     }
     public void createStudent(Student student){
+
+       try{
+           Thread.sleep(2000);
+       }catch (Exception e){
+           System.out.println("Dont Worry God is there! Mahdeva ");
+       }
+
        studentRepository.save(student);
     }
 }
