@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 public class StudentRepository {
 
     public void save(Student student){
-
+        System.out.println("Student is saved");
     }
 }
